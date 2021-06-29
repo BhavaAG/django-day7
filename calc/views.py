@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import datetime
-
+from calc.models import Request
 # Create your views here.
+
+
 def home(request):
     return render(request,'home.html')
 
@@ -29,9 +31,13 @@ def display(request):
                                 if len(pincode) > 5 or len(pincode) < 7:
                                     if len(Qualification) > 2:
                                         if salary > 10000:
-                                            if len(pan_card) < 10:
+                                            if len(pan_card) == 10:
+                                                a = Request(requestid = 1,fname = firstname ,lname = lastname ,dob = DOB ,gender = Gender ,nationality = nationality ,state = state ,city = Currentcity ,pincode = pincode ,qualification = Qualification ,salary = salary ,pancard = pan_card)
+                                                a.save()
                                                 return render(request,'result.html',{'operation' : 'success'})
                                             else:
                                                 return render(request,'result.html',{'operation' : 'reject'})
 
-    return render(request,'result.html')
+                                            
+
+    
